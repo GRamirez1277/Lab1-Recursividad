@@ -1,33 +1,37 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package recusividad;
 
+/**
+ *
+ * @author aleja
+ */
 public class Ticket {
-   public String nombrePasajero;
-   public double totalPagado;
-   
-   public Ticket(String nombrePasajero,double totalPagado){
-       this.nombrePasajero=nombrePasajero;
-       this.totalPagado=totalPagado;
-   }
-   
-   public void setNombrePaasajero(String nombrePasajero){
-       this.nombrePasajero=nombrePasajero;
-   }
-   
-   public String getNombrePasajero(){
-       return nombrePasajero;
-   }
-   
-   public void setTotalPagado(double totalPagado){
-       this.totalPagado=totalPagado;
-   }
-   
-   public double getTotalPagado(){
-       return totalPagado;
-   }
-   
-   public void print(){
-       System.out.println("-------Datos de Ticket-------"+"\nNombre del Pasajero: "+nombrePasajero+
-       "\nTotal Pagado Ticket: Lps. "+totalPagado);
-   }
+    private String nombrePasajero;
+    private double totalPagado;
+    
+    public Ticket(String nombrePasajero, double totalPagado) {
+        this.nombrePasajero = nombrePasajero;
+        this.totalPagado = totalPagado;
+    }
+
+    public String getNombrePasajero() {
+        return nombrePasajero;
+    }
+
+    public double getTotalPagado() {
+        return totalPagado;
+    }
+    
+    public String print() {
+        StringBuilder infoTickets = new StringBuilder();
+        
+        infoTickets.append("Nombre de Pasajero: ").append(nombrePasajero).append("\n");
+        infoTickets.append("Total Pagado: $. ").append(totalPagado).append("\n");
+        
+        return infoTickets.toString();
+    }
     
 }

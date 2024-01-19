@@ -1,145 +1,152 @@
-package     recusividad;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package recusividad;
 
-import recusividad.Ticket;
+import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author jenniferbueso
+ */
 public class PalindromoAir {
+    private Ticket[] asientosCantidad;
     
-    Ticket[] ticket;
-    public int posicion;
-    public double totalIngresos;
-    public double totalPago;
-    
-    
-    public PalindromoAir(){
-        ticket=new Ticket[30];
+    public PalindromoAir() {
+         asientosCantidad = new Ticket[30];
     }
     
-    
-    public int firstAvailable(){
+    public int firstAvailable() {
         return firstAvailable(0);
     }
     
-    private int firstAvailable(int posicion){
-       
-        if(posicion>=ticket.length){
-            return -1;
+    private int firstAvailable(int posicion) {
+        if (posicion < asientosCantidad.length){
+            if (asientosCantidad[posicion] == null) {
+                return posicion;
+            }
+            return firstAvailable(posicion + 1);
         }
-        if(ticket[posicion]==null){
-            return posicion;
-        }
-       
-        else{
-            return firstAvailable(posicion+1);
-        }
-        
+        return -1;
+    } 
+    
+    public int searchPassenger(String name) {
+        return searchPassenger(name, 0);
     }
     
-    public int buscarPasajeros(String nombrePasajero){
-       return buscarPasajero(nombrePasajero,0) ;
-    }
-    private int buscarPasajero(String nombrePasajero,int posicion){
-        
-       if(posicion>=ticket.length){
-            return -1;
+    private int searchPassenger(String name, int posicion) {
+        name = name.toUpperCase();
+        if (posicion < asientosCantidad.length) {
+            if (asientosCantidad[posicion] != null && asientosCantidad[posicion].getNombrePasajero().toUpperCase().equals(name)) {
+                return posicion;
+            }
+            return searchPassenger(name, posicion + 1);
         }
-       if (ticket[posicion] != null && ticket[posicion].getNombrePasajero().equals(nombrePasajero)) {
-                return posicion; 
-        }
-        else{
-           return buscarPasajero(nombrePasajero,posicion+1);
-        }
+        return -1;
     }
     
-    public static boolean isPalindromo(String nombrePasajero){
-       return isPalindromo(nombrePasajero,0,nombrePasajero.length()-1);
+    private boolean isPalindromo(String name) {
+        name = name.toUpperCase();
+        return isPalindromo(name, 0, name.length() - 1);
     }
     
-    private static boolean isPalindromo(String nombrePasajero,int inicio,int fin){
-        if(inicio<fin){
-            if(nombrePasajero.charAt(inicio)==nombrePasajero.charAt(fin))
-                return isPalindromo(nombrePasajero,inicio+1,fin-1);
-                return false;
+    public boolean isPalindromo(String name, int posicionInicial, int posicionFinal) {
+        if (posicionFinal >= posicionInicial) {
+            if (name.charAt(posicionInicial) == (name.charAt(posicionFinal))) {
+                return isPalindromo(name, posicionInicial + 1, posicionFinal - 1);
+            }
+            return false;
         }
         return true;
-      }
-    
-    public void printPassengers(){
-       printPassengers(0);
-    }
-    private void printPassengers(int posicion){
-        if(posicion>=ticket.length){
-            
-        } 
-        if(ticket[posicion]!=null){
-           ticket[posicion].print();
-        }
-         printPassengers(posicion+1);
     }
     
-    public double income(){
-        return income(totalIngresos,0);
-    }
-    private double income(double totalIngresos,int posicion){
-       if(posicion>=ticket.length){
-            return totalIngresos;
-        } 
-       if(ticket[posicion]!=null){
-           totalIngresos+= ticket[posicion].getTotalPagado();
-           return income(totalIngresos,posicion+1);
-        }
-        return income(totalIngresos,posicion+1);
+    public String printPassengers() {
+        StringBuilder passengersInfo = new StringBuilder();
+        printPassengers(passengersInfo, 0);
+        return passengersInfo.toString();
     }
     
-    
-    public void sellTicket(String nombrePasajero){
-       
-        totalPago=0;
-        posicion = firstAvailable(); 
-        if(posicion!=-1){
-            if(isPalindromo(nombrePasajero)==false){
-                totalPago=800;
+    private void printPassengers(StringBuilder passengersInfo, int posicion) {
+        if (posicion < asientosCantidad.length) {
+            if (asientosCantidad[posicion] != null) {
+                passengersInfo.append(asientosCantidad[posicion].getNombrePasajero()).append(" - $. ").append(asientosCantidad[posicion].getTotalPagado()).append("\n");
+                System.out.println(passengersInfo);
             }
-            else{
-                totalPago=800*0.8;
-            }
-            ticket[firstAvailable()] = new Ticket(nombrePasajero, totalPago);
-            
-            System.out.println("--------Monto a Pagar---------"+"\nNombre: "+ticket[posicion].getNombrePasajero()+
-                    "\nMonto a pagar: Lps. "+ticket[posicion].getTotalPagado());      
-        }   
+            printPassengers(passengersInfo, posicion + 1);
+        }
     }
+    
+    public double income() {
+        return income(0, 0);
+    }
+    
+    private double income(double numero, int posicion) {
+        if (posicion >= asientosCantidad.length) {
+            return numero;
+        }
+        if (asientosCantidad[posicion] != null) {
+            numero += asientosCantidad[posicion].getTotalPagado();
+        }
+        return income(numero, posicion + 1);
+    }
+    
     
     public void reset(){
-        totalIngresos = 0;
         reset(0);
     }
-    private void reset(int posicion){
-         if(posicion>=ticket.length){  
-             return;
+    
+    private void reset(int pos){
+        if(pos < asientosCantidad.length){
+            asientosCantidad[pos] = null;
+            reset(pos + 1);
         }
-         ticket[posicion]=null;
-          reset(posicion+1);      
     }
     
-    
-    
-     public boolean cancelTicket(String nombrePasajero){
+    public void sellTicket(String name) {
+        name = name.toUpperCase();
+        String porcentaje = "0%";
+        int asientoDisponible = firstAvailable();
         
-         if (buscarPasajero(nombrePasajero,0)!=-1){
-         ticket [posicion]=null;
-     }else{
-             return false;
-         }
-         return true;
-     }
-    
-     public void dispatch(){
-         
-         System.out.println("Ingreso generado: "+income());
-         reset(0);
-         totalIngresos=0;
-     }
+        if (asientoDisponible != -1) {
+            double total = 800;
+
+            if (isPalindromo(name)) {
+                porcentaje = "20%";
+                double descuento = 800 * 0.2;
+                total -= descuento;
+            }
+
+            asientosCantidad[asientoDisponible] = new Ticket(name, total);
+
+            //Salidas de Pantalla
+            JOptionPane.showMessageDialog(null, "Descuento aplicado: " + porcentaje + "\nComprador: " + name + "\nTotal pagado: $. " + total, "Compra Exitosa", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
-    
 
+    public Ticket[] getAsientosCantidad() {
+        return asientosCantidad;
+    }
+    
+    public boolean cancelTicket(String name) {
+        if (searchPassenger(name) != -1) {
+            asientosCantidad[searchPassenger(name)] = null;
+            return true;
+        }
+        return false;
+    }
+    
+    public void dispatch() {
+        System.out.println("Detalles de los asientos comprados:");
+        printPassengers();
+        
+        System.out.println("Ingresos generados con los asientos comprados: $. " + income());
+        reset();
+        
+        System.out.println("");
+        System.out.println("Avión despachado. Todos los asientos han sido reseteados.");
+    }
+    
+    
+}

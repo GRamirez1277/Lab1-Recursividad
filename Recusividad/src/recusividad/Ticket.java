@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package labrecursividad;
+package recusividad;
 
 public class Ticket {
-    //Atributos 
    public String nombrePasajero;
    public double totalPagado;
    
@@ -14,7 +9,6 @@ public class Ticket {
        this.totalPagado=totalPagado;
    }
    
-    //Set y get
    public void setNombrePaasajero(String nombrePasajero){
        this.nombrePasajero=nombrePasajero;
    }

@@ -1,13 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package     labrecursividad;
+package     recusividad;
 
-/**
- *
- * @author Azalia
- */
+import recusividad.Ticket;
+
 public class PalindromoAir {
     
     Ticket[] ticket;
@@ -20,7 +14,6 @@ public class PalindromoAir {
         ticket=new Ticket[30];
     }
     
-    //aFirst Available
     
     public int firstAvailable(){
         return firstAvailable(0);
@@ -41,7 +34,6 @@ public class PalindromoAir {
         
     }
     
-    //b)Buscar Pasajero
     public int buscarPasajeros(String nombrePasajero){
        return buscarPasajero(nombrePasajero,0) ;
     }
@@ -58,7 +50,6 @@ public class PalindromoAir {
         }
     }
     
-    //c)Es Palindroma
     public static boolean isPalindromo(String nombrePasajero){
        return isPalindromo(nombrePasajero,0,nombrePasajero.length()-1);
     }
@@ -72,7 +63,6 @@ public class PalindromoAir {
         return true;
       }
     
-   //d)Print Passengers
     public void printPassengers(){
        printPassengers(0);
     }
@@ -86,7 +76,6 @@ public class PalindromoAir {
          printPassengers(posicion+1);
     }
     
-    //e) Income
     public double income(){
         return income(totalIngresos,0);
     }
@@ -101,7 +90,6 @@ public class PalindromoAir {
         return income(totalIngresos,posicion+1);
     }
     
-    //g)Sell Ticket
     
     public void sellTicket(String nombrePasajero){
        
@@ -121,7 +109,6 @@ public class PalindromoAir {
         }   
     }
     
-    //f)Reset
     public void reset(){
         totalIngresos = 0;
         reset(0);
@@ -136,7 +123,6 @@ public class PalindromoAir {
     
     
     
-    //h)Cancel Ticket
      public boolean cancelTicket(String nombrePasajero){
         
          if (buscarPasajero(nombrePasajero,0)!=-1){
@@ -147,7 +133,6 @@ public class PalindromoAir {
          return true;
      }
     
-    //i) dispatch
      public void dispatch(){
          
          System.out.println("Ingreso generado: "+income());
